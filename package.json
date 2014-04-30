@@ -1,0 +1,12 @@
+{
+    "name": "koa-browserify",
+    "version": "0.0.1",
+    "author": {
+        "name": "Evgeniy Filatov"
+    },
+    "dependencies": {
+        "browserify": "*",
+        "thunkify": "*"
+    },
+    "main": "index"
+}
