@@ -1,6 +1,6 @@
 {
     "name": "koa-browserify",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": {
         "name": "Evgeniy Filatov"
     },
@@ -9,5 +9,9 @@
         "thunkify": "2.1.1",
         "uglify-js": "2.4.13"
     },
-    "main": "index"
+    "main": "index",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:wtfil/koa-browserify.git"
+    }
 }
