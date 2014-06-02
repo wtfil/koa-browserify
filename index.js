@@ -14,7 +14,7 @@ module.exports = function (options) {
     var root = resolve(options.root || '.'),
         isProduction = 'production' in options ? options.production : (process.env.NODE_ENV === 'production'),
         bundleOpts = {
-            debug: (!isProduction && options.maps) || false
+            debug: (!isProduction && options.debug) || false
         },
         hash = {};
     
@@ -35,25 +35,24 @@ module.exports = function (options) {
 
         b.add(fileName);
 
+        if (options.transform) {
+            b.transform(options.transform);
+        }
+
+        if (!isProduction) {
+            return this.body = b.bundle(bundleOpts);
+        }
+
         try {
             code = yield thunkify(b.bundle.bind(b, bundleOpts))();
+            minify = uglify.minify(code, {fromString: true});
+            code = minify.code;
         } catch (e) {
             this.status= 500;
-            this.body = e.stack;
+            this.body = 'console.error(' + e.stack + ');';
         }
 
-        if (isProduction) {
-            try {
-                minify = uglify.minify(code, {fromString: true});
-                console.log(minify);
-                code = minify.code;
-            } catch(e) {
-                console.log(e.stack);
-            }
-
-            hash[url] = code;
-        }
-
+        hash[url] = code;
         this.body = code;
 
     };
