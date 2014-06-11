@@ -28,7 +28,7 @@ app.listen(3000);
 * ```root``` root folder for scripts
 * ```debug``` enable soucemaps
 * ```production``` enable production mode. In production soucemaps not working and code is minified
-* ```transform``` you can transform original souce with this option
+* ```transform``` you can transform original souce with this option. This options should be a function, that will be called with tr(file) and it should return a through-stream that takes the raw file contents and produces the transformed source.
 
 this code will compile ```jsx``` files to ```js``` code
 
@@ -40,6 +40,7 @@ app.use(browserify({
     root: './public',
     transform: reactify,
 }));
+```
 
 ## production
 
