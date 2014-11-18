@@ -18,7 +18,7 @@ app.use(browserify({
     debug: true // show sorcemap
 }));
 
-app.use(cjs('./public')) // equivalent to {root: './public'}
+app.use(browserify('./public')) // equivalent to {root: './public'}
 
 app.listen(3000);
 ```
