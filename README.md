@@ -29,6 +29,7 @@ app.listen(3000);
 * ```debug``` enable soucemaps
 * ```production``` enable production mode. In production soucemaps not working and code is minified
 * ```transform``` you can transform original souce with this option. This options should be a function, that will be called with tr(file) and it should return a through-stream that takes the raw file contents and produces the transformed source.
+* ```runtime``` you can add adition runtime sources by passing this option
 
 this code will compile ```jsx``` files to ```js``` code
 
@@ -39,6 +40,19 @@ var browserify = require('koa-browserify'),
 app.use(browserify({
     root: './public',
     transform: reactify,
+}));
+```
+
+or
+
+```js
+var browserify = require('koa-browserify'),
+    6to5ify = require('6to5ify');
+
+app.use(browserify({
+    root: './public',
+    transform: 6to5ify,
+    runtime: require.resolve('regenerator/runtime')
 }));
 ```
 

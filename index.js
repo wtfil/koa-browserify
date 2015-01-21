@@ -17,7 +17,7 @@ module.exports = function (options) {
             debug: (!isProduction && options.debug) || false
         },
         hash = {};
-    
+
     return function* (next) {
         var url = this.originalUrl,
             minify, code;
@@ -29,12 +29,18 @@ module.exports = function (options) {
         if (isProduction && hash[url]) {
             return this.body = hash[url];
         }
+        this.type = 'text/javascript';
 
         var fileName = root + url,
             b = browserify();
 
         b.add(fileName);
 
+        if (options.runtime) {
+			[].concat(options.runtime).forEach(function (file) {
+				b.add(file);
+			});
+        }
         if (options.transform) {
             b.transform(options.transform);
         }
